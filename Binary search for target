@@ -1,0 +1,11 @@
+//for target finding in sorted array.
+mid=(en-st)/2;
+while(st<=en){
+    if(arr[mid]==target){
+        return mid;
+    else if(arr[mid]<target){
+        st=mid+1;
+    }
+    else
+        en=mid-1;
+}
