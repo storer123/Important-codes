@@ -1,3 +1,6 @@
+(just don't forget to sort the array or see if predicate is monotonous)
+------------------------------------------------------------------------------------------------------------------------------------------------
+
 //for target finding in sorted array.
 mid=(en-st)/2;
 while(st<=en){
@@ -9,8 +12,22 @@ while(st<=en){
     else
         en=mid-1;
 }
-----------------------------------------------------------------------------------------------------------------------------
-//
+--------------------------------------------------------------------------------------------------------------------------------------------------
+//lower and upper bound if exist lower bound=target else both just  greatest number
+//lower bound
+ans=-1;
+while(l<=r){
+    mid=l+(r-l)/2;
+    if(mid>=target){
+        ans=mid;        //imp
+        r=mid-1;
+    }
+    else l=mid+1;
+}
+return ans;
+--------------------------------------------------------------------------------------------------------------------------------------------------
+//does it exist if yes give it's index
+
 vector<int> v1={1,2,3,4,6,7};
     if(binary_search(v1.begin(),v1.end(),5)){             // for array(v1,v1+n,5)
         cout<<lower_bound(v1.begin(),v1.end(),6)-v1.begin(); // -v1
@@ -18,6 +35,7 @@ vector<int> v1={1,2,3,4,6,7};
     else{
         cout<<-1;
     }
+----------------------------------------------------------------------------------------------------------------------------------------------------
 //square root
 ll st=0,en=N,mid;
     //int eps=1e4;
@@ -63,7 +81,7 @@ void solve(){
         }
         mid=(st+en)/2;
     }
-    cout<<setprecision(10)<< mid<<" "<<sqrt(10.0);//or pow(10,1.0/4)
+    cout<<setprecision(10)<< mid<<" "<<sqrt(10.0);//or pow(10,1.0/4) as 4th root
 }
 ----------------------------------------------------------------------------------------------------------------------------
 //non duplicate
@@ -97,3 +115,34 @@ int singleNonDuplicate(std::vector<int>& nums) {
     //return nums[left];
 }
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
+//my favourite , unthinkable at first , predicate function approach
+//aggresive cows(similar to wood required , just don't forget to sort)
+#include<bits/stdc++.h>
+bool ispossible(vector<int> &stalls,int m,int k){        //predicate function of type TTTTFFFF
+    int prev=-1;int n=stalls.size();int cnt=k;
+    for(int i=0;i<n;i++){
+        if(stalls[i]-prev>=m||prev==-1){
+            cnt--;
+            prev=stalls[i];
+        }if(cnt==0)return true;
+    }
+    return false;
+}
+int aggressiveCows(vector<int> &stalls, int k) {
+    int n=stalls.size();
+    int lo=0,hi=1e9,ans=-1;
+    sort(stalls.begin(),stalls.end());
+    while(lo<=hi){
+        int mid=lo+(hi-lo)/2;
+        if(ispossible(stalls,mid,k)){
+            ans=mid;                                  //why not mid-1 as lo is true and we want to include it we don't know if we will find it in future.
+            lo=mid+1;
+        }
+        else{
+            hi=mid-1;
+        }
+    }
+     return ans;
+}
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+
