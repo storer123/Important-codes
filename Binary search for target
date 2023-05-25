@@ -145,4 +145,37 @@ int aggressiveCows(vector<int> &stalls, int k) {
      return ans;
 }
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
+//though not good but for midean in a row sorted matrix 
+#include <bits/stdc++.h>
+int count(int mid, vector<vector<int>> &matrix){
+    int cnt=0;
+    for(auto row : matrix){
+        auto it=upper_bound(row.begin(),row.end(),mid);
+        cnt+=(it-row.begin());
+    }return cnt;
+}
+int getMedian(vector<vector<int>> &matrix)
+{
+    int n = matrix.size();
 
+    int m = matrix[0].size();
+    int total=n*m/2;
+    vector<int> v;
+    int low=INT_MAX,high=INT_MIN;
+    for(int i=0 ; i<n ; i++){
+
+        low=min(low,matrix[i][0]);
+        high=max(high,matrix[i][m-1]);
+    }
+    int ans=-1;
+    while(low<=high){
+        int mid=low+(high-low)/2;
+        if(count(mid,matrix)>total){
+            ans=mid;
+            high=mid-1;
+        }
+        else low=mid+1;
+    }
+    return ans;
+}
+--------------------------------------------------------------------------------------------------------------------------------------------------------
