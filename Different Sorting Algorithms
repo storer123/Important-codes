@@ -1,0 +1,49 @@
+//Bubble Sort (optimized) 
+//stable and inplace
+#include <bits/stdc++.h> 
+void bubbleSort(vector<int>& arr, int n)
+{   bool swaped;
+    for(int i=0;i<n-1;i++){
+        swaped=false;
+        for(int j=0;j<n-1-i;j++){
+            if(arr[j]>arr[j+1]){
+                swap(arr[j],arr[j+1]);
+                swaped=true;
+            }
+        }
+        if(!swaped)break;
+    }
+}
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+//Insertion Sort 
+//stable and inplace
+//can be done by recursion as well but space becomes o(n)
+//efficient for small values near 40, better for partially sorted,inplace
+#include <bits/stdc++.h> 
+void insertionSort(int n, vector<int> &arr){
+    for(int i=1;i<n;i++){
+        int key=arr[i];
+        int j=i-1;
+        while(j>=0&&key<arr[j]){
+            arr[j+1]=arr[j];
+            j--;
+        }j++;
+        arr[j]=key;
+    }
+}
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+//Selecton sort 
+//inplace and not stable (there exist a stable non standard one)
+#include <bits/stdc++.h> 
+void selectionSort(vector<int>& arr, int n)
+{   
+    for(int i=0;i<n-1;i++){
+        int minind=i;
+        for(int j=i+1;j<n;j++){
+            if(arr[j]<arr[minind])
+                minind=j;
+        }
+        swap(arr[minind],arr[i]);
+    }
+}
+-------------------------------------------------------------------------------------------------------------------------------------------------------
