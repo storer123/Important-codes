@@ -1,0 +1,19 @@
+//https://www.codingninjas.com/codestudio/problems/longest-subset-zero-sum_920321?leftPanelTab=2
+//notice map of 0
+#include <bits/stdc++.h>
+
+int LongestSubsetWithZeroSum(vector < int > arr) {
+  map<int,int> mp;
+  mp[0]=1;
+  int sum=0,len=0;
+  for(int i=0;i<arr.size();i++){
+    sum+=arr[i];
+    if(mp[sum]==0){
+      mp[sum]=i+2;                               //one for 0 based indexing 
+    }                                           // and other for mp[0]
+    else{
+      len=max(len,i+2-mp[sum]);
+    }
+  }
+  return len;
+}
