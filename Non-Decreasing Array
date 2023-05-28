@@ -1,5 +1,5 @@
 //https://www.codingninjas.com/codestudio/problems/non-decreasing-array_699920
-//in this question we want to tell if order is possible through 1 swap , only in this 'xxxxooyyxx'or'xxoxxoxx' condition it fails not in this 'xxxxoyyxx'
+//in this question we want to tell if order is possible through 1 element modif. , only in this 'xxxxooyyxx'or'xxoxxoxx' condition it fails not in this 'xxxxoyyxx'
 bool isPossible(int *arr, int n)
 {
     int cnt=0,mini=n-1;
