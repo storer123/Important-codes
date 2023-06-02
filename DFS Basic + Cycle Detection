@@ -37,3 +37,31 @@ int main(){
     }
     return 0;
 }
+------------------------------------------------------------------------------------------------------------------------------------------------
+//Cycle detection
+const int N=1e5+7;
+vector<int> graph2[N];
+
+bool dfs(int vertex,int par,vector<int> adj[],bool vis[]){   
+    bool iscycled=0; 
+    vis[vertex]=true;
+    for(auto child : adj[vertex]){
+        if(vis[child] && child==par)continue;
+        if(vis[child])return 1;
+        iscycled |= dfs(child,vertex,adj,vis);
+    }
+    return iscycled;
+}
+class Solution {
+  public:
+    // Function to detect cycle in an undirected graph.
+    bool isCycle(int V, vector<int> adj[]) {
+    bool vis[V]={0};
+       for(int i=0;i<V;i++){
+            if(vis[i])continue;
+            if(dfs(i,-1,adj,vis)){
+                return 1;
+            }
+       }return 0;
+    }
+};
