@@ -1,0 +1,41 @@
+//graph representation adjacency matrix and adjacency list
+#include<bits/stdc++.h>
+using namespace std;
+//input as n m 1 2 3   4 3 5   4 6 7 ,where n represents no. of vertices and m represents no. of edges
+const int N = 1e3+9;
+int graph1[N][N];//it will be initialized with 0
+vector<pair<int,int>> graph2[N];
+int main(){
+    int n,m;
+    cin>>n>>m;
+    int i,j,wt;
+    while(m--){
+        cin>>i>>j>>wt;
+        graph1[i][j]=wt;
+        graph1[j][i]=wt;
+        graph2[i].push_back({j,wt});
+        graph2[j].push_back({i,wt});
+    }
+    //Adjacency martrix
+    //space complexity O(V^2); and removing vertex
+    //adding new vertex O(V^2) (v+1 x v+1)
+    //adding new edge and removing edge O(1) 
+    //query BUT IS IT CONNECTED OR WHAT IS WEIGHT OF EDGE I,J ->O(1);
+    
+    //Adjacency List(preferred)
+    //space complexity O(V+E); and removing vertex
+    //adding new vertex O(1)
+    //adding new edge O(1)
+    //removing edge O(E)  
+    //in times E can become V^2 (VC2)
+    //query BUT IS IT CONNECTED OR WHAT IS WEIGHT OF EDGE I,J ->O(N);
+    //what is the weight of i,j
+    cin>>i>>j;
+    cout<<graph1[i][j];
+    for(pair<int,int> p : graph2[i]){
+        if(p.first==j){
+            cout<<p.second;
+        }
+    }
+    return 0;
+}
