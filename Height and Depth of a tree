@@ -1,0 +1,31 @@
+#include<bits/stdc++.h>
+using namespace std;
+const int N = 1e5+9;
+vector<int> tree[N];
+vector<int> depth(N);
+vector<int> height(N);
+void dfs(int vertex,int par=0){   
+    for(auto child : tree[vertex]){
+        if(child==par){
+            continue;
+        }
+        depth[child] = depth[vertex] + 1;
+        dfs(child,vertex);
+        height[vertex]=max(height[vertex],height[child]+1);
+    }
+}
+int main(){
+    int n,m;
+    cin>>n>>m;
+    int i,j;
+    while(m--){
+        cin>>i>>j;
+        tree[i].push_back(j);
+        tree[j].push_back(i);
+    }
+    dfs(1);
+    for(int i=1;i<n+1;i++){
+        cout<<height[i]<<" "<<depth[i]<<"\n";
+    }
+    return 0;
+}
