@@ -1,0 +1,100 @@
+//extended euclid for gcd , apart from gcd, gives x and y 	
+//if(x*c%v==0 && y*c%v==0)->no answer
+as ac+by=gcd(a*b) so convert to c 
+#include <bits/stdc++.h> 
+int gcd(int a, int b, int& x, int& y) {  
+    if (b == 0) {
+        x = 1;
+        y = 0;
+        return a;
+    }
+    int x1, y1;
+    int d = gcd(b, a % b, x1, y1);
+    x = y1;
+    y = x1 - y1 * (a / b);
+    return d;
+}
+vector<int> linearEquation(int a, int b, int c)
+{
+	int x,y;
+	int v=gcd(a,b,x,y);
+	if(x*c%v==0 && y*c%v==0)
+	return{x*c/v,y*c/v};
+	else return {-1,-1};
+}
+//euclidian algo or long divisin method
+int gcd(int a,int b){
+    if(b==0) return a;
+    return gcd(b,a%b);       //divisor becomes dividend and remainder becomes divisor
+}
+============================================================================================================================
+//binary exponentiation to find (x^n)%m but faster 
+2^10=2^5*2^5
+2^5=2*2^2*2^2
+2^2=2*2
+2^1=2*2^0*2^0
+//recursion
+//int binaryExponentiation(int x, int n, int m) {
+//	int ans=1;
+//	while(n){
+//		if(n&1){
+//			ans=(1LL*ans*x)%m;
+//		}
+//		x=(x*1LL*x)%m;
+//		n >>= 1 ;
+//	}return ans;
+//}
+//int solve(int a,int b,int c,int m){
+//    int ans=binaryExponentiation(a, b, m);
+//   // ans=ans/c;
+//    //if(gcd(c,m)==1)// c^-1=(c^m-2)%m//binary inversion->but fails in many cases thus should use extended euclidian
+//    int cinv=binaryExponentiation(c, m-2, m);
+//    return (ans%m*cinv%m)%m;
+//}
+
+ int binaryExponentiation(int x, int n, int m) {
+     int ans = 1;
+     while (n) {
+         if (n & 1) {
+             ans = (1LL * ans * x) % m;
+         }
+         x = (x * 1LL * x) % m;
+         n >>= 1;
+     }
+     return ans;
+ }
+//also known as MMI modular multiplicative inverse
+ int extendedEuclidean(int a, int m) {
+     int m0 = m;
+     int y = 0, x = 1;
+
+     if (m == 1) {
+         return 0;
+     }
+
+     while (a > 1) {
+         int q = a / m;
+         int t = m;
+
+         m = a % m;
+         a = t;
+         t = y;
+
+         y = x - q * y;
+         x = t;
+     }
+
+     if (x < 0) {
+         x += m0;
+     }
+
+     return x;
+ }
+
+ int solve(int a, int b, int c, int m) {
+     int ans = binaryExponentiation(a, b, m);
+     int cinv = extendedEuclidean(c, m);
+     return (ans * cinv) % m;
+ }
+ ==============================================================================================================================================
+ 
