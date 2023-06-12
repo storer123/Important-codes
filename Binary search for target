@@ -12,7 +12,7 @@ while(st<=en){
     else
         en=mid-1;
 }
---------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------
 //lower and upper bound if exist lower bound=target else both just  greatest number
 //lower bound
 ans=-1;
@@ -25,7 +25,7 @@ while(l<=r){
     else l=mid+1;
 }
 return ans;
---------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------
 //does it exist if yes give it's index
 
 vector<int> v1={1,2,3,4,6,7};
@@ -35,7 +35,7 @@ vector<int> v1={1,2,3,4,6,7};
     else{
         cout<<-1;
     }
-----------------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------
 //square root
 ll st=0,en=N,mid;
     //int eps=1e4;
@@ -114,7 +114,7 @@ int singleNonDuplicate(std::vector<int>& nums) {
 
     //return nums[left];
 }
------------------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------
 //my favourite , unthinkable at first , predicate function approach
 //aggresive cows(similar to wood required , just don't forget to sort)
 #include<bits/stdc++.h>
@@ -135,7 +135,7 @@ int aggressiveCows(vector<int> &stalls, int k) {
     while(lo<=hi){
         int mid=lo+(hi-lo)/2;
         if(ispossible(stalls,mid,k)){
-            ans=mid;                                  //why not mid-1 as lo is true and we want to include it we don't know if we will find it in future.
+            ans=mid;                       //why not mid-1 as lo is true and we want to include it we don't know if we will find it in future.
             lo=mid+1;
         }
         else{
@@ -144,7 +144,7 @@ int aggressiveCows(vector<int> &stalls, int k) {
     }
      return ans;
 }
-----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------
 //though not good but for midean in a row sorted matrix 
 #include <bits/stdc++.h>
 int count(int mid, vector<vector<int>> &matrix){
@@ -178,4 +178,74 @@ int getMedian(vector<vector<int>> &matrix)
     }
     return ans;
 }
---------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------
+                                                             DIVISORS
+                                                    ----------------------------------
+O(SQRT(N)) IF(NO IS PERFECT SQ CNT*2-1 AND I , N/I
+
+//here we are getting in O(1) but we need to find prime factors in optimized ways which is by seive =>O(n*log(log(n)))
+to find if prime to do prime check sqrt(n)
+FORMULAE
+X = p1^n1 * p2^n2 * p3^n3
+    p1 ------ n1 times p2---n2 times p3---n3 times
+    combinatrix 
+    no of divisors (n1+1)(n2+1)(n3+1) //+1 for not taking
+    sum -> (1+p1+p1^2+p1^3----p1^n1) //GP  (p1^(n1+1) -1 )/ (p1 - 1)
+          *(1+p2+p2^2+p2^3----p2^n2)       *(p2^(n1+1) -1 )/ (p2 - 1)
+          *(1+p3+p3^2+p3^3----p3^n3)       *(p3^(n3+1) -1 )/ (p3 - 1)
+       = sum
+  
+  // generally smallest available is prime
+  //o(sqrt(n))
+  vector<int> ans;
+  for(int i=2;1LL*i*i<=n;i++){
+        while(n%i==0){
+        ans.push_back(i);
+            n/=i;
+        }
+  }
+   if(n>1){
+    ans.push_back(n);
+   }
+   
+   sieve O(n*log(log(n)))
+   
+   HIGHEST PRIME
+   LOWEST PRIME 
+   PRIME FACTORIZATION
+   DIVISORS
+   
+    HIGHEST PRIME
+   LOWEST PRIME 
+   PRIME FACTORIZATION
+   vector<int> lowestprime lp(n),hp(n);
+   int main(){
+    isPrime[0] = isPrime[1]=false;
+    for(int i=0;i<N;i++){
+        if(isPrime[i]==true){
+            lp[i]=h[i];
+        }
+        for(int j=2*i;j<N;j+=i){
+            isPrime[j]=false;
+            hp[j]=i;
+            if(lp[j]==0)lp[j]=i;
+        }
+    }
+    
+    int num;//find prime factorization of num
+    map<int,int> prime_factors;
+    while(num>1){
+        int prime_factor=hp[num];
+        while(num%prime_factor==0){
+            num/=prime_factor;
+            prime_factors[prime_factor]++;
+        }
+   }
+}
+
+ DIVISORS
+ vector<int> divisors[N];
+ int main(){
+ 
+ 
+ }
