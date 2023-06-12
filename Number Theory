@@ -53,6 +53,7 @@ int gcd(int a,int b){
 //}
 
  int binaryExponentiation(int x, int n, int m) {
+     x=x%m;           //x<=10^18            
      int ans = 1;
      while (n) {
          if (n & 1) {
@@ -97,4 +98,91 @@ int gcd(int a,int b){
      return (ans * cinv) % m;
  }
  ==============================================================================================================================================
- 
+ a<=10^18, b later, m=<=10^18
+ int binaryMultiplication(int a,int b){
+ 	//3^13->3^(1101)->3(8+4+0+1) similar as binay expo
+	int ans=0;
+	while(b>0){
+		if(b&1)
+		    ans=(ans+a)%m;
+		a=(a+a)%m;
+		b>>1;
+	}
+	return ans;
+ }
+ int binaryExponentiation(int x, int n, int m) {
+     x=x%m;           //x<=10^18
+     		      //m<=10^18 how as earlier it gets integer but now 10^18*10^18 get overflow , so use binary multipication 
+     int ans = 1;
+     while (n) {
+         if (n & 1) {
+             ans = (1LL * ans * x) % m;
+         }
+         x = (x * 1LL * x) % m;
+         n >>= 1;
+     }
+     return ans;
+ }
+//also known as MMI modular multiplicative inverse
+ int extendedEuclidean(int a, int m) {
+     int m0 = m;
+     int y = 0, x = 1;
+
+     if (m == 1) {
+         return 0;
+     }
+
+     while (a > 1) {
+         int q = a / m;
+         int t = m;
+
+         m = a % m;
+         a = t;
+         t = y;
+
+         y = x - q * y;
+         x = t;
+     }
+
+     if (x < 0) {
+         x += m0;
+     }
+
+     return x;
+ }
+
+ int solve(int a, int b, int c, int m) {
+     int ans = binaryExponentiation(a, b, m);
+     int cinv = extendedEuclidean(c, m);
+     return (ans * cinv) % m;
+ }
+=======================================================================================================================================================
+b -> b^c->(a%m)^(b%m) %m is wrong , not in %m
+a^b^c 50^64^32 % 1e9+7
+64^32
+how to divide by 2 each time
+a,b gcd(a,b) = 1 coprime
+ETF -> Eular totient function
+n-> count of k
+	such that 1<=k<=n and k,n are coprime
+	s->1,2,3,4,5,6
+	phi(5)=4 
+	phi(6)=2  1,5
+	phi(n) = n *  all* (1-1/p) p is distincct prime factor of n 
+	phi(5)=5* 6*(1-1/5)=4
+	phi(6)=6(1-1/2)*(1-1/3)
+Eular's theorm
+a^b % m congruent to (a^(b mod phi(m)))%m
+if n is prime phi(n) or etf(n) = n* (1-1/n) = n-1
+
+a^b^c 50^64^32 % M 
+if(m is prime
+ans -> binExp(50,binExp(64,32,M-1))
+
+or to increse b it can be given as array
+then in array /by2 manually 
+a^b%1337 7*191  phi(1337)=1440
+4,3,3,8,5,2
+2*10^0 %1440
++ 5*10^1 %1440
+...
