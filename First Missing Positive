@@ -1,0 +1,43 @@
+//Segregation Method 
+//https://www.codingninjas.com/codestudio/problems/first-missing-positive_699946?leftPanelTab=2
+//seperate negative at end 
+//make all if(abs(arr[i])<=n&&arr[abs(arr[i])-1]>0)arr[abs(arr[i])-1]*=-1;
+#include <bits/stdc++.h> 
+int firstMissing(int arr[], int n)
+{
+    int st=0,end=n-1,cnt=0;
+    for(int i=0;i<n;i++){
+        if(arr[i]<0){
+            cnt++;
+        }
+    }
+    while(st<end){
+        while(end>=0&&arr[end]<1){
+            end--;
+        }
+        if(st>=end||end==-1){
+            break;
+        }
+        if(arr[st]<1){
+            
+            int t=arr[st];
+            arr[st]=arr[end];
+            arr[end]=t;
+            end--;
+        }
+        st++;
+    }
+    for(int i=0;i<n-cnt;i++){
+        if(abs(arr[i])<=n){
+            if(arr[abs(arr[i])-1]>0)
+            arr[abs(arr[i])-1]*=-1;
+        }
+    }
+    for(int i=0;i<n-cnt;i++){
+        if(arr[i]>=0){
+            return i+1;
+        }
+    }
+    if(n==cnt||cnt==0)return n-cnt+1;
+    return n-cnt;
+}
